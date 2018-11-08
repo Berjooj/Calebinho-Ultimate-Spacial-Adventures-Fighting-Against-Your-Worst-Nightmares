@@ -11,14 +11,14 @@ $(document).ready(function () {
     let effectsCanvas = document.getElementById("effects");
     let contextCanvasEffects = effectsCanvas.getContext("2d");
 
-    let character = new Character (25, 25, 160, 70, contextCanvasCharacter, characterCanvas, 650);
+    let character = new Character (25, 25, 160, 70, contextCanvasCharacter, characterCanvas, 650, 5);
     let fireAction = new Fire (character, 35, 35, contextCanvasFire, fireCanvas, 500, 500);
-    let enemy = new Enemy (70, 50, contextCanvasEnemy, enemyCanvas, 500, 12);
+    let enemy = new Enemy (70, 50, contextCanvasEnemy, enemyCanvas, 650, 15);
     let explosions = new Explosion (0, 0, 30, 30, effectsCanvas, contextCanvasEffects, 300);
 
     // let hud = new HUD (HUDCanvas, contextCanvasHUD);
 
-    setInterval(function () {
+    let gameLoop = setInterval(function () {
         hitByEnemy(character, enemy.getEnemies());
         hitEnemy(fireAction.getShots(), enemy.getEnemies(), 50, 50, explosions);
         
@@ -26,6 +26,11 @@ $(document).ready(function () {
         fireAction.drawFire();
         enemy.drawEnemy();
         explosions.drawExplosion();
+
+        if(character.isGameOver()) {
+            clearInterval(gameLoop);
+            $('#GameOver').css('display', 'block').css('display', 'flex');
+        }
     }, 1/60);
 
     $(this).on('keydown', keyPress => {

@@ -11,6 +11,7 @@ function hitByEnemy (character, enemyArray) {
                                     character.getWidth(),
                                     character.getHeigth());
         if (hasHitten) {
+            character.gotHittenByEnemy();
             hasHitten = false;
             enemyArray.splice(enemyArray.indexOf(enemyArray[i]), 1);
             break;

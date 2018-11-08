@@ -1,5 +1,5 @@
 class Character extends GameObject {
-    constructor (x, y, width, heigth, context, canvas, movimentSpeed) {
+    constructor (x, y, width, heigth, context, canvas, movimentSpeed, maxLife) {
         super(x, y, 0, 0, width, heigth, context, canvas)
         
         this.movimentSpeed = movimentSpeed;
@@ -18,7 +18,10 @@ class Character extends GameObject {
         this.charIcon.src = "src/char_icon.png";
 
         this.lifePoints = new Array();
-        // fillLifePoints();
+        this.maxLife = maxLife;
+        this.lifePointsCount = this.maxLife;
+        this.gameOver = false;
+        this.fillLifePoints();
     }
 
     drawCharacter() {
@@ -27,7 +30,6 @@ class Character extends GameObject {
         this.timePass = this.currentTime;
 
         if (this.isClickingX) {
-            // this.x += (this.movimentSpeed * this.deltaTime) * this.directionX;
             this.x = this.clamp((this.x + (this.movimentSpeed * this.deltaTime) * this.directionX),
                          0, this.canvas.width - this.width);
 
@@ -37,8 +39,40 @@ class Character extends GameObject {
             0, this.canvas.height - this.heigth);
 
         }
+
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.drawLifePoints();
         this.context.drawImage(this.charIcon, this.x, this.y, this.width, this.heigth);
+    }
+
+    drawLifePoints () {
+        for (let i = 0; i < this.maxLife; i++) {
+            this.context.drawImage(this.lifePoints[i], 
+                i * 30, 
+                10, 
+                30, 30);
+        }
+    }
+
+    fillLifePoints () {
+        for (let i = 0; i < this.maxLife; i++) {
+            let fullHeartIcon = new Image();
+            fullHeartIcon.src = "src/heart.png";
+
+            this.lifePoints[this.lifePoints.length] = fullHeartIcon;
+        }
+    }
+
+    gotHittenByEnemy () {
+        this.lifePointsCount --;
+
+        if (this.lifePointsCount > 0) {
+            let deadHeartIcon = new Image();
+            deadHeartIcon.src = "src/deadHeart.png";
+            this.lifePoints[this.lifePointsCount] = deadHeartIcon;
+        } else {
+            this.gameOver = true;
+        }
     }
 
     getMovimentSpeed () {
@@ -65,5 +99,9 @@ class Character extends GameObject {
     setY (directionY) {
         this.directionY = directionY;
         this.isClickingY = true;
+    }
+
+    isGameOver () {
+        return this.gameOver;
     }
 }
