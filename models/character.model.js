@@ -1,12 +1,6 @@
-class Character {
+class Character extends GameObject {
     constructor (x, y, width, heigth, context, canvas, movimentSpeed) {
-        this.x = x;
-        this.y = y;
-        this.heigth = heigth;
-        this.width = width;
-
-        this.context = context;
-        this.canvas = canvas;
+        super(x, y, 0, 0, width, heigth, context, canvas)
         
         this.movimentSpeed = movimentSpeed;
         
@@ -36,13 +30,10 @@ class Character {
 
         }
         if (this.isClickingY) {
-            // this.y += (this.movimentSpeed * this.deltaTime) * this.directionY;
             this.y = this.clamp((this.y + (this.movimentSpeed * this.deltaTime) * this.directionY),
             0, this.canvas.height - this.heigth);
 
         }
-
-        // this.context.fillStyle  = "aqua";
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.context.drawImage(this.charIcon, this.x, this.y, this.width, this.heigth);
     }
@@ -51,28 +42,16 @@ class Character {
         return this.getMovimentSpeed;
     }
 
-    getCanvas () {
-        return this.canvas;
+    unsetX () {
+        this.isClickingX = false;
     }
 
-    getContext () {
-        return this.context;
+    unsetY () {
+        this.isClickingY = false;
     }
 
-	getX () {
-        return this.x;
-    }
-
-    getY () {
-        return this.y;
-    }
-
-    getHeigth () {
-        return this.heigth;
-    }
-
-    getWidth () {
-        return this.width;
+    setMovimentSpeed (movimentSpeed) {
+        this.movimentSpeed = movimentSpeed;
     }
 
     setX (directionX) {
@@ -83,37 +62,5 @@ class Character {
     setY (directionY) {
         this.directionY = directionY;
         this.isClickingY = true;
-    }
-
-    unsetX () {
-        this.isClickingX = false;
-    }
-
-    unsetY () {
-        this.isClickingY = false;
-    }
-    
-    setHeight (heigth) {
-        this.heigth = heigth;
-    }
-
-    setWidth (width) {
-        this.width = width;
-    }
-
-    setContext (context) {
-        this.context = context;
-    }
-
-    setCanvas (canvas) {
-        this.canvas = canvas;
-    }
-
-    setMovimentSpeed (movimentSpeed) {
-        this.movimentSpeed = movimentSpeed;
-    }
-
-    clamp (n, lower, upper) {
-        return Math.max(lower, Math.min(n, upper));
     }
 }

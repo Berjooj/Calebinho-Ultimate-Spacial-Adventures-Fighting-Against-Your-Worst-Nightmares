@@ -1,16 +1,10 @@
-class Enemy {
+class Enemy extends GameObject {
     constructor(width, heigth, context, canvas, movimentSpeed, enemyCount) {
-        this.width = width,
-        this.heigth = heigth;
-        this.currentX = width;
-        this.currentY = 0;
+        super(0, 0, width, heigth, width, heigth, context, canvas);
 
         this.currentTime = 0;
         this.timePass = Date.now();
         this.deltaTime = 0;
-
-        this.context = context;
-        this.canvas = canvas;
 
         this.movimentSpeed = movimentSpeed;
 
@@ -19,7 +13,6 @@ class Enemy {
         this.fireIcon.src = "src/enemy_" + enemySkin + ".png";
 
         this.enemyArray = new Array();
-
         this.enemyCount = enemyCount;
 
         this.canDeleteMyself = false;
@@ -54,8 +47,6 @@ class Enemy {
 
         let randomY = Math.floor(Math.random() * (this.canvas.height - this.heigth) + 1);
 
-        // console.log(randomY);
-
         this.enemyArray[this.enemyArray.length - 1].setCurrentX(this.canvas.width);
         this.enemyArray[this.enemyArray.length - 1].setCurrentY(randomY);
     }
@@ -72,7 +63,7 @@ class Enemy {
 
         this.currentX -= parseFloat(this.movimentSpeed * this.deltaTime);
 
-        if (this.currentX < 0) //|| bater em algo (fogo ou usuário)
+        if (this.currentX < 0)
             this.canDeleteMyself = true;
     }
 
@@ -80,35 +71,7 @@ class Enemy {
         return this.canDeleteMyself;
     }
 
-    setCurrentX (x) {
-        this.currentX = x;
-    }
-
-    setCurrentY (y) {
-        this.currentY = y;
-    }
-
-    getWidth () {
-        return this.width;
-    }
-
-    getHeigth () {
-        return this.heigth;
-    }
-
-    getCurrentX() {
-        return this.currentX;
-    }
-
-    getCurrentY() {
-        return this.currentY;
-    }
-
     getEnemies () {
         return this.enemyArray;
-    }
-
-    clamp (n, lower, upper) {
-        return Math.max(lower, Math.min(n, upper));
     }
 }

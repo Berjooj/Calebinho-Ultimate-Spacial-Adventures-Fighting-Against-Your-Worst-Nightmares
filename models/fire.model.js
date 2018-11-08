@@ -1,17 +1,11 @@
-class Fire {
+class Fire extends GameObject {
     constructor(character, width, heigth, context, canvas, movimentSpeed) {
+        super(0, 0, 0, 0, width, heigth, context, canvas);
         this.character = character;
-        this.width = width,
-        this.heigth = heigth;
-        this.currentX = 0;
-        this.currentY = 0;
-
+        
         this.currentTime = 0;
         this.timePass = Date.now();
         this.deltaTime = 0;
-
-        this.context = context;
-        this.canvas = canvas;
 
         this.movimentSpeed = movimentSpeed;
 
@@ -33,7 +27,6 @@ class Fire {
                 i--;
             }
         }
-        // console.log(this.fireArray.length);
     }
 
     shoot() {
@@ -61,7 +54,7 @@ class Fire {
 
         this.currentX += parseFloat(this.movimentSpeed * this.deltaTime);
 
-        if (this.currentX > this.canvas.width) //|| bater em algo (inimigo)
+        if (this.currentX > this.canvas.width)
             this.canDeleteMyself = true;
     }
 
@@ -69,31 +62,7 @@ class Fire {
         return this.canDeleteMyself;
     }
 
-    setCurrentX(x) {
-        this.currentX = x;
-    }
-
-    setCurrentY(y) {
-        this.currentY = y;
-    }
-
-    getCurrentX() {
-        return this.currentX;
-    }
-
-    getCurrentY() {
-        return this.currentY;
-    }
-
     getShots () {
         return this.fireArray;
-    }
-
-    getWidth () {
-        return this.width;
-    }
-
-    getHeigth () {
-        return this.heigth;
     }
 }
