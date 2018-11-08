@@ -1,5 +1,5 @@
 class Fire extends GameObject {
-    constructor(character, width, heigth, context, canvas, movimentSpeed) {
+    constructor(character, width, heigth, context, canvas, movimentSpeed, animationTime) {
         super(0, 0, 0, 0, width, heigth, context, canvas);
         this.character = character;
         
@@ -15,6 +15,8 @@ class Fire extends GameObject {
         this.fireArray = new Array();
 
         this.canDeleteMyself = false;
+
+        this.animationTime = animationTime;
     }
 
     drawFire() {
@@ -36,7 +38,8 @@ class Fire extends GameObject {
             this.heigth,
             this.context,
             this.canvas,
-            this.movimentSpeed);
+            this.movimentSpeed,
+            this.animationTime);
 
         this.fireArray[this.fireArray.length - 1].setCurrentX((this.character.getX() + (this.character.getWidth() * 0.8)));
         this.fireArray[this.fireArray.length - 1].setCurrentY(this.character.getY());

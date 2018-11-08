@@ -18,7 +18,7 @@ function hitByEnemy (character, enemyArray) {
     }
 }
 
-function hitEnemy (fireArray, enemyArray, context, width, heigth) {
+function hitEnemy (fireArray, enemyArray, width, heigth, explosions) {
     let hasHitten = false;
 
     for (let i = 0; i < enemyArray.length; i++) {
@@ -32,8 +32,9 @@ function hitEnemy (fireArray, enemyArray, context, width, heigth) {
                                     fireArray[j].getWidth(),
                                     fireArray[j].getHeigth());
             if (hasHitten) {
+                explosions.addExplosion(fireArray[j].getCurrentX(), fireArray[j].getCurrentY(), width, heigth);
                 hasHitten = false;
-                drawExplosion(context, fireArray[j].getCurrentX(), fireArray[j].getCurrentY(), width, heigth);
+                
                 enemyArray.splice(enemyArray.indexOf(enemyArray[i]), 1);
                 fireArray.splice(fireArray.indexOf(fireArray[j]), 1);
                 break;
@@ -47,14 +48,4 @@ function intersects (x, y, h, w, x2, y2, w2, h2) {
             || (x + w) < x2 
             || y > (y2 + h2) 
             || (y + h) < y2);
-}
-
-function drawExplosion (context, x, y, width, heigth) {
-    let explode = new Image();
-    explode.src = "src/explode.gif";
-
-    context.drawImage(explode,
-        x,
-        y,
-        width, heigth);
 }
