@@ -1,5 +1,5 @@
 class Enemy {
-    constructor(width, heigth, context, canvas, movimentSpeed) {
+    constructor(width, heigth, context, canvas, movimentSpeed, enemyCount) {
         this.width = width,
         this.heigth = heigth;
         this.currentX = width;
@@ -20,6 +20,8 @@ class Enemy {
 
         this.enemyArray = new Array();
 
+        this.enemyCount = enemyCount;
+
         this.canDeleteMyself = false;
     }
 
@@ -33,10 +35,10 @@ class Enemy {
                 i--;
             }
         }
-        if (this.enemyArray.length <= 7) {
+        if (this.enemyArray.length < this.enemyCount) {
             let rand = Math.floor(Math.random() * 10000);
 
-            if (rand >= 9900)
+            if (rand >= 9500)
                 this.addNewEnemy();
         }
     }
@@ -47,7 +49,8 @@ class Enemy {
             this.heigth,
             this.context,
             this.canvas,
-            this.movimentSpeed);
+            this.movimentSpeed,
+            this.enemyCount);
 
         let randomY = Math.floor(Math.random() * (this.canvas.height - this.heigth) + 1);
 

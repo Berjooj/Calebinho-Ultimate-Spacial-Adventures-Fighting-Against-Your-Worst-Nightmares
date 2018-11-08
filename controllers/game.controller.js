@@ -13,7 +13,7 @@ $(document).ready(function () {
 
     let character = new Character (25, 25, 160, 70, contextCanvasCharacter, characterCanvas, 650);
     let fireAction = new Fire (character, 35, 35, contextCanvasFire, fireCanvas, 500);
-    let enemy = new Enemy (70, 50, contextCanvasEnemy, enemyCanvas, 400);
+    let enemy = new Enemy (70, 50, contextCanvasEnemy, enemyCanvas, 500, 12);
 
     setInterval(function () {
         hitByEnemy(character, enemy.getEnemies());
