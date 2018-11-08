@@ -14,7 +14,7 @@ $(document).ready(function () {
     let character = new Character (25, 25, 160, 70, contextCanvasCharacter, characterCanvas, 650);
     let fireAction = new Fire (character, 35, 35, contextCanvasFire, fireCanvas, 500, 500);
     let enemy = new Enemy (70, 50, contextCanvasEnemy, enemyCanvas, 500, 12);
-    let explosions = new Explosion (0, 0, 30, 30, effectsCanvas, contextCanvasEffects, 200);
+    let explosions = new Explosion (0, 0, 30, 30, effectsCanvas, contextCanvasEffects, 300);
 
     // let hud = new HUD (HUDCanvas, contextCanvasHUD);
 
@@ -54,5 +54,9 @@ $(document).ready(function () {
             character.unsetY();
         else if (keyUp.which === 83)
             character.unsetY();
+    });
+
+    $("#GameOverButton").on('click', function () {
+        location.reload();
     });
 });

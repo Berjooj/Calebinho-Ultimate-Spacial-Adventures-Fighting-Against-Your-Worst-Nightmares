@@ -16,6 +16,9 @@ class Character extends GameObject {
         
         this.charIcon = new Image();
         this.charIcon.src = "src/char_icon.png";
+
+        this.lifePoints = new Array();
+        // fillLifePoints();
     }
 
     drawCharacter() {
